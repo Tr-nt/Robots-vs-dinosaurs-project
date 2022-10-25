@@ -1,22 +1,32 @@
-from robot import robot
-from dinosaur import dinosaur
+from Robot import robot
+from Dinosaur import dinosaur
 
 class battlefield:
     
     def __init__(self) -> None:
-        dino = dinosaur("Dyno", 20)
-        robo = robot("zoid")
+        self.Robot = robot("Robo")
+        self.Dinosaur = dinosaur("Dino", 20)
 
-    def run_game(self):
-        while self.dino.health > 0 and self.robo.health > 0:
-            pass
-
+    
     def display_welcome(self):
         print ("Welcome to the game")
 
     def battle_phase(self):
-        attack_1 = robot.attack
-        attack_2 = dinosaur.attack
-
+        self.Robot.attack(self.Dinosaur)
+        self.Dinosaur.attack(self.Robot)
+    
     def display_winner(self):
-        pass 
+        if self.Robot.health < 0:
+            print(f'{self.Dinosaur.name} wins the fight')
+        elif self.Dinosaur.health < 0:
+            print(f'{self.Robot.name} wins the fight')
+    
+    def run_game(self):
+        self.display_welcome()
+        
+        while self.Dinosaur.health > 0 and self.Robot.health > 0:
+           self.battle_phase()
+        
+        self.display_winner()
+
+        
